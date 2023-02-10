@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: Lede-MI-R3G Main
+name: openwrt-ci
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
 
   build_openwrt:
 
-    name: Build OpenWrt Firmware1
+    name: Build K2P Firmware1
 
     runs-on: ubuntu-latest
 
@@ -49,6 +49,7 @@ jobs:
           mkdir openwrt-packages
           cd openwrt-packages
           git clone https://github.com/siwind/luci-app-wolplus.git
+          git clone https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -124,7 +125,7 @@ jobs:
           # EOF
           # 常用LuCI插件选择:
           cat >> .config <<EOF
-           CONFIG_PACKAGE_ddnsgo=y
+          CONFIG_PACKAGE_ddnsgo=y
           # CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
           # CONFIG_PACKAGE_luci-app-accesscontrol is not set
           CONFIG_PACKAGE_luci-app-ddns-go=y
